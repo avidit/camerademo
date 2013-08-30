@@ -9,27 +9,29 @@
     tools:context=".MainActivity" >
 
     <ImageView
+        android:id="@+id/photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/blank_face2" />
+
+    <ImageView
         android:id="@+id/thumb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@android:drawable/gallery_thumb" />
+        android:src="@drawable/blank_face" />
 
     <ImageButton
         android:id="@+id/camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/thumb"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:src="@android:drawable/ic_menu_camera" />
-
-    <ImageView
-        android:id="@+id/photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/camera"
-        android:layout_below="@+id/thumb"
-        android:src="@android:drawable/gallery_thumb" />
 
 </RelativeLayout>

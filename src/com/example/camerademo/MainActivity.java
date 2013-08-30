@@ -2,7 +2,6 @@ package com.example.camerademo;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,27 +25,27 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements OnClickListener{
 
 	ImageView preview = null;
-	ImageView whole_photo = null;
+	ImageView big_photo = null;
 	ImageButton clicker;
-	Bitmap photo;
 	Uri myfileUri = null;
 	private static final int CAMERA_REQUEST = 0; 
-	Bitmap bitmap = null;
-	
+	Bitmap bitmap_photo = null;
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
 		preview = (ImageView)findViewById(R.id.thumb);
-		whole_photo = (ImageView)findViewById(R.id.photo);
+		big_photo = (ImageView)findViewById(R.id.photo);
 		clicker = (ImageButton)findViewById(R.id.camera);
-
 		clicker.setOnClickListener(this);
 	}
 
 	@Override
-	public void onClick(View v) {
+	public void onClick(View v) 
+	{
 		Intent myint = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); 
 		myfileUri = Uri.fromFile(getPhoto());
 		myint.putExtra(MediaStore.EXTRA_OUTPUT, myfileUri);//RG - set this, so camera can capture the picture and store into this file
@@ -55,75 +54,61 @@ public class MainActivity extends Activity implements OnClickListener{
 
 	private File getPhoto()
 	{
-		//RG
-		File directory = Environment.getExternalStorageDirectory(); //you need 	this in the manifest: <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+		File directory = Environment.getExternalStorageDirectory(); 
 		directory=new File(directory.getAbsolutePath()+"/.temp/");
-
 		if(directory.exists() == false)
 		{
 			directory.mkdir();
 		}
 		Locale current = getResources().getConfiguration().locale;
 		SimpleDateFormat myformat = new SimpleDateFormat("yyMMdd_HHmmss", current);
-		String date = myformat.format(new Date());
-<<<<<<< HEAD
-		File image = File(directory.getPath() + File.separator + "IMG_" + date + ".jpg");
-		
-=======
-		try {
+		String date = myformat.format(new Date());		
+		try 
+		{
 			return File.createTempFile("IMG_" + date, ".jpg", directory);//RG - you need to CREATE an empty file, before you send it to the camera
-		} catch (IOException e) {
+		} 
+		catch (IOException e)
+		{
+			@SuppressWarnings("unused")
 			boolean exists = directory.exists();
 			e.printStackTrace();
 		}
-
 		return null;
->>>>>>> 07c81430e9bc10e832309683e6617dec4038b4ac
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{  
-		if (requestCode == CAMERA_REQUEST)
-		{
-			if (resultCode == RESULT_OK)
-			{  
-<<<<<<< HEAD
-				//Uri photoUri  = data.getData();
-				String filestring = myfileUri.getPath();
+		if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK)
+		{ 
+			//Bitmap bitmap_preview = (Bitmap)data.getExtras().get("data"); 
+			//preview.setImageBitmap(bitmap_preview);
 
-				Bitmap photo = (Bitmap) data.getExtras().get("data"); 
-				preview.setImageBitmap(photo);
-
-				Bitmap bitmap = BitmapFactory.decodeFile(filestring);
-				BitmapDrawable drawable = new BitmapDrawable(this.getResources(),bitmap);
-				//whole_photo.setScaleType(ImageView.ScaleType.FIT_CENTER);
-				whole_photo.setImageDrawable(drawable);
-=======
-				String filestring = myfileUri.getPath();
-				File dest = new File(filestring);
-				FileInputStream fis;
-				try {
-					fis = new FileInputStream(dest); //
-					if(bitmap != null)
-					{
-						bitmap.recycle();//RG - make sure you recycle to save memory
-					}
-					bitmap = BitmapFactory.decodeStream(fis);
-					preview.setImageBitmap(bitmap);
-					fis.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
->>>>>>> 07c81430e9bc10e832309683e6617dec4038b4ac
-			}
-			else if (resultCode == RESULT_CANCELED) 
+			String filestring = myfileUri.getPath();
+			File dest = new File(filestring);
+			FileInputStream fis;
+			try 
 			{
-				Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
+				fis = new FileInputStream(dest);
+				if(bitmap_photo != null)
+				{
+					bitmap_photo.recycle();
+				}
+				bitmap_photo = BitmapFactory.decodeStream(fis);
+				big_photo.setImageBitmap(bitmap_photo);
+				fis.close();
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
 			}
 		}
+		else if (resultCode == RESULT_CANCELED) 
+		{
+			Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
+		}
 	}
-	
+
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
