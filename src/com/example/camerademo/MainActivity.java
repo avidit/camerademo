@@ -59,7 +59,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		Locale current = getResources().getConfiguration().locale;
 		SimpleDateFormat myformat = new SimpleDateFormat("yyMMdd_HHmmss", current);
 		String date = myformat.format(new Date());
-		return new File(directory.getPath() + File.separator + "IMG_" + date + ".jpg");
+		File image = File(directory.getPath() + File.separator + "IMG_" + date + ".jpg");
 		
 	}
 
@@ -69,15 +69,15 @@ public class MainActivity extends Activity implements OnClickListener{
 		{
 			if (resultCode == RESULT_OK)
 			{  
-				Uri photoUri  = data.getData();
-				String filestring = photoUri.getPath();
+				//Uri photoUri  = data.getData();
+				String filestring = myfileUri.getPath();
 
 				Bitmap photo = (Bitmap) data.getExtras().get("data"); 
 				preview.setImageBitmap(photo);
 
 				Bitmap bitmap = BitmapFactory.decodeFile(filestring);
 				BitmapDrawable drawable = new BitmapDrawable(this.getResources(),bitmap);
-				whole_photo.setScaleType(ImageView.ScaleType.FIT_CENTER);
+				//whole_photo.setScaleType(ImageView.ScaleType.FIT_CENTER);
 				whole_photo.setImageDrawable(drawable);
 			}
 			else if (resultCode == RESULT_CANCELED) 

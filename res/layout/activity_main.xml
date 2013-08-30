@@ -16,15 +16,6 @@
         android:layout_centerHorizontal="true"
         android:src="@android:drawable/gallery_thumb" />
 
-    <ImageView
-        android:id="@+id/photo"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_below="@+id/camera"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp"
-        android:src="@android:drawable/alert_light_frame" />
-
     <ImageButton
         android:id="@+id/camera"
         android:layout_width="wrap_content"
@@ -32,5 +23,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:src="@android:drawable/ic_menu_camera" />
+
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/camera"
+        android:layout_below="@+id/thumb"
+        android:src="@android:drawable/gallery_thumb" />
 
 </RelativeLayout>
